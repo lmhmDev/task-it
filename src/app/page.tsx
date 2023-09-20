@@ -5,13 +5,14 @@ import Card from '@/components/card';
 import Column from '@/components/column';
 import { useState } from 'react';
 import useStore from '../utils/store';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 export default function Home() {
 
   const [value, setValue] = useState('')
   const tasks = useStore((state) => state.tasks)
-  const column1 = useStore((state) => state.column1)
-  const column2 = useStore((state) => state.column2)
+  const columns = useStore((state) => state.columns)
+  const columnOrder = useStore((state) => state.columnOrder)
 
   const addAction = useStore((state) => state.addTask)
 
@@ -31,15 +32,6 @@ export default function Home() {
         <button onClick={() => addTask()}>Add</button>
       </div>
       <Board>
-        <div className="mt-10 flex flex-col gap-8 items-center justify-center w-1/3">
-          {tasks.map(task => {
-            return <Card task={task} actual="tasks" />
-          })}
-        </div>
-        <div className="flex gap-6">
-          <Column name="Columna 1" id="column1" tasks={column1} />
-          < Column name="Columna 2" id="column2" tasks={column2} />
-        </div>
       </Board>
     </main>
   )
