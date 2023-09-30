@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { Column } from './dnd_types'
 
 const initialData = {
     tasks: {
@@ -8,41 +9,25 @@ const initialData = {
         'task-4': { id: 'task-4', content: 'Cook dinner' }
     },
 
-    columns: {
-        'column-1': {
+    columns: [
+        {
             id: 'column-1',
-            title: 'To do',
-            taskIds: ['task-1', 'task-2']
+            title: 'To do'
         },
-        'column-2': {
+        {
             id: 'column-2',
-            title: 'To do 2',
-            taskIds: ['task-3', 'task-4']
+            title: 'To do 2'
         }
-    },
-
-    columnOrder: ['column-1', 'column-2']
+    ]
 }
 
 const useStore = create((set) => ({
     tasks: initialData.tasks,
     columns: initialData.columns,
-    columnOrder: initialData.columnOrder,
-    addTask: (where, task) => {
+    addColumn: (column: Column) => {
         set((state) => ({
-            [where]: [...state[where], task]
+            columns: [...state['columns'], column]
         }))
-    },
-    moveTask: (where, to, task) => {
-        set((state) => ({
-            [where]: state[where].filter((o) => o !== task),
-            [to]: [...state[to], task]
-        }))
-    },
-    removeTask: (o) => {
-        set((state) => ({
-            tasks: state.tasks.filter((task) => task !== o),
-        }));
     },
 }))
 

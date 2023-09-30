@@ -1,13 +1,24 @@
+import AddIcon from '@/icons/AddIcon';
+import { Column } from '@/utils/dnd_types';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import useStore from '../utils/store';
-import Column from './column';
+import ColumnContainer from './column';
 
 
 const Board = () => {
 
     const tasks = useStore((state) => state.tasks)
-    const columns = useStore((state) => state.columns)
-    const columnOrder = useStore((state) => state.columnOrder)
+    const columns: Column[] = useStore((state) => state.columns)
+    const addColumn = useStore((state) => state.addColumn)
+
+    const add = () => {
+        const newCol = {
+            id: 556,
+            title: 'buenaas'
+        }
+
+        addColumn(newCol)
+    }
 
     const onDragEnd = (event) => {
         const { active, over } = event
@@ -17,14 +28,14 @@ const Board = () => {
 
     return (
         <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-            { columnOrder.map((columnId) => {
+            <div className="flex gap-5 px-5 items-center overflow-x-auto overflow-y-hidden">
+                {columns.map((column) => {
 
-                const column = columns[columnId]
-                const columnTasks = column.taskIds.map(taskId => tasks[taskId])
+                    return <ColumnContainer key={column.id} column={column} />
 
-                return <Column key={column.id} column={column} tasks={columnTasks} />
-
-            })}
+                })}
+                <button className="flex p-3 rounded hover:bg-detail" onClick={add}><AddIcon /> añadir</button>
+            </div>
         </DndContext>
     )
 }

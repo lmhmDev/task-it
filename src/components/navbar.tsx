@@ -1,6 +1,6 @@
 const Navbar = () => {
     return (
-        <section className="flex bg-primary w-full text-white px-2 py-4">
+        <section className="flex items-center px-4 bg-primary w-full text-white h-[74px]">
             <p className="text-xl">Task It</p>
         </section>
     )
