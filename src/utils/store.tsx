@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { Column } from './dnd_types'
+import { Column, Id } from './dnd_types';
+import { Column } from '@/utils/dnd_types';
 
 const initialData = {
     tasks: {
@@ -29,6 +30,11 @@ const useStore = create((set) => ({
             columns: [...state['columns'], column]
         }))
     },
+    deleteColumn: (columnId: Id) => {
+        set((state) => ({
+            columns: state.columns.filter((column: Column) => column.id != columnId)
+        }))
+    }
 }))
 
 export default useStore
