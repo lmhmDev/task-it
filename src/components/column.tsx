@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import Card from './card';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { useSortable } from '@dnd-kit/sortable';
 import { Column } from '@/utils/dnd_types';
-import Trash from '@/icons/Trash';
 import useStore from '../utils/store';
+import { CSS } from '@dnd-kit/utilities'
 
 interface Props {
     column: Column
@@ -17,10 +15,27 @@ const ColumnContainer = ({ column }: Props) => {
         deleteCol(column.id)
     }
 
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
+        id: column.id,
+        data: {
+            type: 'Column',
+            column
+        }
+    })
+
+    const style = {
+        transition,
+        transform: CSS.Transform.toString(transform),
+        opacity: isDragging ? 0.5 : 1
+    }
+
 
     return (
-        <div className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded">
-            <div className="
+        <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded">
+            <div
+                {...attributes}
+                {...listeners}
+                className="
             bg-primary 
             border-secondary 
             border-4 
@@ -41,7 +56,8 @@ const ColumnContainer = ({ column }: Props) => {
                 stroke-secondary
                 hover:stroke-white
                 hover:bg-secondary
-                rounded"
+                rounded
+                z-3"
                     onClick={deleteColumn}
                 >
                     Delete

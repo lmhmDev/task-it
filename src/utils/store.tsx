@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { Column, Id } from './dnd_types';
 import { Column } from '@/utils/dnd_types';
+import { arrayMove } from '@dnd-kit/sortable';
 
 const initialData = {
     tasks: {
@@ -14,10 +15,6 @@ const initialData = {
         {
             id: 'column-1',
             title: 'To do'
-        },
-        {
-            id: 'column-2',
-            title: 'To do 2'
         }
     ]
 }
@@ -33,6 +30,11 @@ const useStore = create((set) => ({
     deleteColumn: (columnId: Id) => {
         set((state) => ({
             columns: state.columns.filter((column: Column) => column.id != columnId)
+        }))
+    },
+    changeOrder: (oldIndex: number, newIndex: number) => {
+        set((state) => ({
+            columns: arrayMove(state.columns, oldIndex, newIndex)
         }))
     }
 }))
