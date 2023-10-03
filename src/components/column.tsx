@@ -15,6 +15,10 @@ const ColumnContainer = ({ column }: Props) => {
         deleteCol(column.id)
     }
 
+    const edit = () => {
+        console.log('ss')
+    }
+
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: column.id,
         data: {
@@ -33,8 +37,7 @@ const ColumnContainer = ({ column }: Props) => {
     return (
         <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded">
             <div
-                {...attributes}
-                {...listeners}
+
                 className="
             bg-primary 
             border-secondary 
@@ -43,11 +46,15 @@ const ColumnContainer = ({ column }: Props) => {
             p-2 
             rounded-md 
             rounded-b-none 
-            cursor-grab
             flex 
             justify-between
             items-center">
-                <div>
+                <div
+                    {...attributes}
+                    {...listeners}
+                    className="
+                    cursor-grab"
+                >
                     <h3 className="text-2xl text-white">{column.title}</h3>
                 </div>
                 <button
@@ -58,14 +65,14 @@ const ColumnContainer = ({ column }: Props) => {
                 hover:bg-secondary
                 rounded
                 z-3"
-                    onClick={deleteColumn}
+                    onClick={() => deleteColumn()}
                 >
                     Delete
                 </button>
             </div>
             <div className="flex flex-grow">Content</div>
             <div>footer</div>
-        </div>
+        </div >
     )
 }
 
