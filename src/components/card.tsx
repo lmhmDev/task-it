@@ -1,36 +1,28 @@
 import useStore from '../utils/store';
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { Task } from '@/utils/dnd_types';
 
-const Card = ({ task }) => {
+interface Props {
+    task: Task
+}
 
-    const moveTask = useStore((state) => state.moveTask)
-    const removeTask = useStore((state) => state.removeTask)
+const Card = ({ task }: Props) => {
 
-    const {
-        attributes,
-        listeners,
-        setNodeRef,
-        transform,
-        transition
-    } = useSortable({
-        id: task.id
-    })
-
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition
-    }
+    const deleteTask = useStore((state) => state.deleteTask)
 
     return (
-        <div
-            style={style}
-            ref={setNodeRef}
-            {...attributes}
-            {...listeners}
-            className={`w-full border border-grey p-3 mb-2`}
-        >
+        <div className={`w-full flex items-center justify-between border border-grey p-2 mb-2`}>
             { task.content}
+            <button
+                onClick={() => {
+                    deleteTask(task.id)
+                }}
+                className="
+                p-2
+                rounded
+            hover:bg-detail
+            ">Delete</button>
         </div >
     )
 }

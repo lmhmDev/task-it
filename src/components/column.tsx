@@ -1,15 +1,22 @@
 import { useSortable } from '@dnd-kit/sortable';
-import { Column } from '@/utils/dnd_types';
+import { Column, Task } from '@/utils/dnd_types';
 import useStore from '../utils/store';
 import { CSS } from '@dnd-kit/utilities'
+import { useState } from 'react';
+import Card from './card';
 
 interface Props {
     column: Column
+    tasks: Task[]
 }
 
-const ColumnContainer = ({ column }: Props) => {
+const ColumnContainer = ({ column, tasks }: Props) => {
+
+    const [editMode, setEditMode] = useState(false)
 
     const deleteCol = useStore((state) => state.deleteColumn)
+    const updateColumnTitle = useStore((state) => state.updateColumnTitle)
+    const createTask = useStore((state) => state.createTask)
 
     const deleteColumn = () => {
         deleteCol(column.id)
@@ -24,7 +31,8 @@ const ColumnContainer = ({ column }: Props) => {
         data: {
             type: 'Column',
             column
-        }
+        },
+        disabled: editMode
     })
 
     const style = {
@@ -37,7 +45,9 @@ const ColumnContainer = ({ column }: Props) => {
     return (
         <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded">
             <div
-
+                {...attributes}
+                {...listeners}
+                onClick={() => setEditMode(true)}
                 className="
             bg-primary 
             border-secondary 
@@ -45,17 +55,29 @@ const ColumnContainer = ({ column }: Props) => {
             h-[60px] 
             p-2 
             rounded-md 
-            rounded-b-none 
+            rounded-b-none
+            cursor-grab 
             flex 
             justify-between
             items-center">
-                <div
-                    {...attributes}
-                    {...listeners}
-                    className="
-                    cursor-grab"
-                >
-                    <h3 className="text-2xl text-white">{column.title}</h3>
+                <div>
+                    {
+                        editMode ?
+                            <input
+                                value={column.title}
+                                onChange={(e) => {
+                                    updateColumnTitle(column.id, e.target.value)
+                                }}
+                                autoFocus
+                                onBlur={() => setEditMode(false)
+                                }
+                                onKeyDown={(e) => {
+                                    if (e.key !== 'Enter') return
+                                    setEditMode(false)
+                                }}
+                            /> :
+                            <h3 className="text-2xl text-white">{column.title}</h3>
+                    }
                 </div>
                 <button
                     className="
@@ -70,8 +92,20 @@ const ColumnContainer = ({ column }: Props) => {
                     Delete
                 </button>
             </div>
-            <div className="flex flex-grow">Content</div>
-            <div>footer</div>
+            <div className="flex flex-col flex-grow px-1">
+                {
+                    tasks.map(task => {
+                        return <Card task={task} />
+                    })
+                }
+            </div>
+            <div>
+                <button
+                    onClick={() => {
+                        createTask(column.id)
+                    }}
+                >Add Task</button>
+            </div>
         </div >
     )
 }
