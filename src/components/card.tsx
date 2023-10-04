@@ -17,12 +17,40 @@ const Card = ({ task }: Props) => {
     const deleteTask = useStore((state) => state.deleteTask)
     const updateTask = useStore((state) => state.updateTask)
 
+    const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
+        id: task.id,
+        data: {
+            type: 'Task',
+            task
+        },
+        disabled: editMode
+    })
+
+    const style = {
+        transition,
+        transform: CSS.Transform.toString(transform),
+    }
+
+    if (isDragging) {
+        return <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+            className={`w-full flex items-center h-[50px] justify-between border border-grey p-2 mb-2 opacity-30`}
+        />
+    }
+
     return (
         <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
             onClick={() => setEditMode(true)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className={`w-full flex items-center justify-between border border-grey p-2 mb-2 hover:ring-2 hover:ring-inset hover:ring-primary`}>
+            className={`w-full flex items-center justify-between border border-grey h-[50px] mb-2 hover:ring-2 hover:ring-inset hover:ring-primary`}>
             {
                 editMode ?
                     <input

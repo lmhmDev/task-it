@@ -81,6 +81,12 @@ const useStore = create((set) => ({
 
             return { tasks: newTasks }
         })
+    },
+
+    changeTasksOrder: (oldIndex: number, newIndex: number) => {
+        set((state) => ({
+            tasks: arrayMove(state.tasks, oldIndex, newIndex)
+        }))
     }
 }))
 

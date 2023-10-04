@@ -1,8 +1,8 @@
-import { useSortable } from '@dnd-kit/sortable';
+import { SortableContext, useSortable } from '@dnd-kit/sortable';
 import { Column, Task } from '@/utils/dnd_types';
 import useStore from '../utils/store';
 import { CSS } from '@dnd-kit/utilities'
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Card from './card';
 
 interface Props {
@@ -18,12 +18,12 @@ const ColumnContainer = ({ column, tasks }: Props) => {
     const updateColumnTitle = useStore((state) => state.updateColumnTitle)
     const createTask = useStore((state) => state.createTask)
 
+    const tasksIds = useMemo(() => {
+        return tasks.map(task => task.id)
+    }, [tasks])
+
     const deleteColumn = () => {
         deleteCol(column.id)
-    }
-
-    const edit = () => {
-        console.log('ss')
     }
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
@@ -40,7 +40,6 @@ const ColumnContainer = ({ column, tasks }: Props) => {
         transform: CSS.Transform.toString(transform),
         opacity: isDragging ? 0.5 : 1
     }
-
 
     return (
         <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded">
@@ -93,11 +92,13 @@ const ColumnContainer = ({ column, tasks }: Props) => {
                 </button>
             </div>
             <div className="flex flex-col flex-grow px-1">
-                {
-                    tasks?.map(task => {
-                        return <Card task={task} />
-                    })
-                }
+                <SortableContext items={tasksIds}>
+                    {
+                        tasks?.map(task => {
+                            return <Card key={task.id} task={task} />
+                        })
+                    }
+                </SortableContext>
             </div>
             <div>
                 <button
