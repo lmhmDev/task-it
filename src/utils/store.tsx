@@ -70,6 +70,17 @@ const useStore = create((set) => ({
         set((state) => ({
             tasks: state.tasks.filter((task: Task) => task.id !== taskId)
         }))
+    },
+
+    updateTask: (taskId: Id, content: string) => {
+        set((state) => {
+            const newTasks = state.tasks.map((task: Task) => {
+                if (task.id !== taskId) return task
+                return { ...task, content }
+            })
+
+            return { tasks: newTasks }
+        })
     }
 }))
 

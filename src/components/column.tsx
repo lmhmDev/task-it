@@ -94,7 +94,7 @@ const ColumnContainer = ({ column, tasks }: Props) => {
             </div>
             <div className="flex flex-col flex-grow px-1">
                 {
-                    tasks.map(task => {
+                    tasks?.map(task => {
                         return <Card task={task} />
                     })
                 }

@@ -73,7 +73,7 @@ const Board = () => {
             </div>
             {typeof window !== 'undefined' && createPortal(
                 <DragOverlay>
-                    {activeColumn && <ColumnContainer column={activeColumn} />}
+                    {activeColumn && <ColumnContainer column={activeColumn} tasks={tasks.filter(task => task.columnId === activeColumn.id)} />}
                 </DragOverlay>
                 , document.body)}
         </DndContext>
