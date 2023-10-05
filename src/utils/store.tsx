@@ -5,10 +5,10 @@ import { arrayMove } from '@dnd-kit/sortable';
 
 const initialData = {
     tasks: [
-        { id: 'task-1', columnId: 'column-1', content: 'Take out garbage' },
-        { id: 'task-2', columnId: 'column-1', content: 'Pet the cat' },
-        { id: 'task-3', columnId: 'column-1', content: 'Dance on the kitchen floor' },
-        { id: 'task-4', columnId: 'column-1', content: 'Cook dinner' }
+        { id: 'task-1', columnId: 'column-1', title: 'Take out garbage', content: 'I have to take out the garbage or mom kills me' },
+        { id: 'task-2', columnId: 'column-1', title: 'pet de cat', content: 'i should definetly Pet the cat' },
+        { id: 'task-3', columnId: 'column-1', title: 'run', content: 'Go running!' },
+        { id: 'task-4', columnId: 'column-1', title: 'Kiss garbage', content: 'Im joking, but you looked!' }
     ],
 
     columns: [
@@ -60,7 +60,8 @@ const useStore = create((set) => ({
             const newTask: Task = {
                 id: generateId(),
                 columnId: columnId,
-                content: 'New task'
+                title: 'New Task',
+                content: ''
             }
             return { tasks: [...state['tasks'], newTask] }
         })
@@ -72,11 +73,11 @@ const useStore = create((set) => ({
         }))
     },
 
-    updateTask: (taskId: Id, content: string) => {
+    updateTask: (taskId: Id, title: string, content: string) => {
         set((state) => {
             const newTasks = state.tasks.map((task: Task) => {
                 if (task.id !== taskId) return task
-                return { ...task, content }
+                return { ...task, title, content }
             })
 
             return { tasks: newTasks }

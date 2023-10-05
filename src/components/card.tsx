@@ -7,23 +7,21 @@ import { setegid } from 'process';
 
 interface Props {
     task: Task
+    activeModal: (task: Task) => void
 }
 
-const Card = ({ task }: Props) => {
+const Card = ({ task, activeModal }: Props) => {
 
     const [isHovered, setIsHovered] = useState(false)
-    const [editMode, setEditMode] = useState(false)
 
     const deleteTask = useStore((state) => state.deleteTask)
-    const updateTask = useStore((state) => state.updateTask)
 
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: {
             type: 'Task',
             task
-        },
-        disabled: editMode
+        }
     })
 
     const style = {
@@ -47,27 +45,11 @@ const Card = ({ task }: Props) => {
             style={style}
             {...attributes}
             {...listeners}
-            onClick={() => setEditMode(true)}
+            onClick={() => activeModal(task)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`w-full flex items-center justify-between border border-grey h-[50px] mb-2 hover:ring-2 hover:ring-inset hover:ring-primary`}>
-            {
-                editMode ?
-                    <input
-                        value={task.content}
-                        autoFocus
-                        onBlur={() => {
-                            setEditMode(false)
-                        }}
-                        onKeyDown={(e) => {
-                            if (e.key !== 'Enter') return
-                            setEditMode(false)
-                        }}
-                        onChange={(e) => {
-                            updateTask(task.id, e.target.value)
-                        }}
-                    /> :
-                    <p className="p-2">{task.content}</p>}
+            <p className="p-2">{task.title}</p>
             {
                 isHovered &&
                 <button

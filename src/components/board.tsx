@@ -10,8 +10,12 @@ import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Card from './card';
 
+interface Props {
+    activeModal: (task: Task) => void
+}
 
-const Board = () => {
+
+const Board = ({ activeModal }: Props) => {
     const columns: Column[] = useStore((state) => state.columns)
     const tasks: Task[] = useStore((state) => state.tasks)
     const addColumn = useStore((state) => state.addColumn)
@@ -116,7 +120,7 @@ const Board = () => {
                 <SortableContext items={columnsIds}>
                     {columns.map((column) => {
                         const colTasks = tasks.filter(task => task.columnId === column.id)
-                        return <ColumnContainer key={column.id} column={column} tasks={colTasks} />
+                        return <ColumnContainer key={column.id} column={column} tasks={colTasks} activeModal={activeModal} />
 
                     })}
                 </SortableContext>
@@ -124,8 +128,8 @@ const Board = () => {
             </div>
             {typeof window !== 'undefined' && createPortal(
                 <DragOverlay>
-                    {activeColumn && <ColumnContainer column={activeColumn} tasks={tasks.filter(task => task.columnId === activeColumn.id)} />}
-                    {activeTask && <Card task={activeTask} />}
+                    {activeColumn && <ColumnContainer column={activeColumn} tasks={tasks.filter(task => task.columnId === activeColumn.id)} activeModal={activeModal} />}
+                    {activeTask && <Card task={activeTask} activeModal={activeModal} />}
                 </DragOverlay>
                 , document.body)}
         </DndContext>

@@ -1,17 +1,29 @@
 'use client'
 
 import Board from '@/components/board';
-import Card from '@/components/card';
-import Column from '@/components/column';
+import Modal from '@/components/modal';
 import { useState } from 'react';
-import useStore from '../utils/store';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { Task } from '../utils/dnd_types';
 
 export default function Home() {
 
-  return (
-    <main className="flex items-center h-[calc(100vh-74px)] w-full">
-      <Board />
-    </main>
-  )
+    const [showModal, setShowModal] = useState(true)
+    const [modalTask, setModalTask] = useState<Task | null>(null)
+
+    const activeModal = (task: Task) => {
+        setModalTask(task)
+        setShowModal(true)
+    }
+
+    const deactivateModal = () => {
+        setShowModal(false)
+        setModalTask(null)
+    }
+
+    return (
+        <main className="flex items-center h-[calc(100vh-74px)] w-full">
+            {showModal && modalTask && <Modal task={modalTask} deactivate={deactivateModal} />}
+            <Board activeModal={activeModal} />
+        </main>
+    )
 }

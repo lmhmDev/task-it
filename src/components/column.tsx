@@ -8,9 +8,10 @@ import Card from './card';
 interface Props {
     column: Column
     tasks: Task[]
+    activeModal: (task: Task) => void
 }
 
-const ColumnContainer = ({ column, tasks }: Props) => {
+const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
 
     const [editMode, setEditMode] = useState(false)
 
@@ -95,7 +96,7 @@ const ColumnContainer = ({ column, tasks }: Props) => {
                 <SortableContext items={tasksIds}>
                     {
                         tasks?.map(task => {
-                            return <Card key={task.id} task={task} />
+                            return <Card key={task.id} task={task} activeModal={activeModal} />
                         })
                     }
                 </SortableContext>
