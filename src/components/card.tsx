@@ -49,7 +49,7 @@ const Card = ({ task, activeModal }: Props) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`w-full flex items-center justify-between border border-grey h-[50px] mb-2 hover:ring-2 hover:ring-inset hover:ring-primary`}>
-            <p className="p-2">{task.title}</p>
+            <p className="p-2">{task.subTasks?.length && task.subTasks.length}{task.title} </p>
             {
                 isHovered &&
                 <button

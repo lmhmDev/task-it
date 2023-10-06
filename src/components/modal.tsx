@@ -1,6 +1,7 @@
-import { Task } from '../utils/dnd_types';
+import { Task, Id, subTask } from '../utils/dnd_types';
 import { useState } from 'react';
 import useStore from '../utils/store';
+import SubTask from './subTask';
 interface Props {
     task: Task
     deactivate: () => void
@@ -13,13 +14,43 @@ function Modal({ task, deactivate }: Props) {
     const updateTask = useStore((state) => state.updateTask)
 
     const saveTask = () => {
-        updateTask(localTask.id, localTask.title, localTask.content)
+        updateTask(localTask.id, localTask)
         deactivate()
+    }
+
+    const editSubTask = (id: Id, content: string) => {
+        const newSubTasks = localTask.subTasks.filter(subTask => {
+            if (subTask.id !== id) return subTask
+            return { ...subTask, content }
+        })
+        setLocalTask(prevState => {
+            return { ...prevState, subTasks: newSubTasks }
+        })
+    }
+
+    const deleteSubTask = (subTaskId: Id) => {
+        const newSubTasks = localTask.subTasks.filter(subTask => {
+            if (subTask.id !== subTaskId) return subTask
+        })
+        setLocalTask(prevState => {
+            return { ...prevState, subTasks: newSubTasks }
+        })
+    }
+
+    const createSubTask = () => {
+        const newSubTasks = localTask.subTasks.push({
+            id: Math.random() * 10001,
+            content: 'New Sub Task',
+            done: false
+        })
+        setLocalTask(prevState => {
+            return { ...prevState, newSubTasks }
+        })
     }
 
     return (
         <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center">
-            <div className="bg-secondary w-2/4 h-2/3 flex flex-col p-3">
+            <div className="bg-secondary min-w-fit w-1/4 h-2/3 flex flex-col p-3">
                 <div className="grow">
                     <p>Task title:
                     <input value={localTask.title} onChange={(e) => {
@@ -34,6 +65,24 @@ function Modal({ task, deactivate }: Props) {
                             return { ...prevState, content: e.target.value }
                         })
                     }} />
+                    <div className="flex flex-col">
+                        <p>Subtasks:</p>
+                        {
+                            !!localTask.subTasks?.length &&
+
+                            localTask.subTasks.map(subTask => {
+                                return <SubTask subTask={subTask} editSubTask={editSubTask} deleteSubTask={deleteSubTask} />
+                            })
+
+                        }
+                        {
+                            localTask.subTasks && localTask.subTasks.length < 4 &&
+
+                            <button
+                                onClick={createSubTask}
+                            >Add</button>
+                        }
+                    </div>
                 </div>
                 <footer className="flex justify-end p-2">
                     <button

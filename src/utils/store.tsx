@@ -1,11 +1,10 @@
 import { create } from 'zustand'
-import { Column, Id, Task } from './dnd_types';
-import { Column } from '@/utils/dnd_types';
+import { Column, Id, Task, subTask } from './dnd_types';
 import { arrayMove } from '@dnd-kit/sortable';
 
 const initialData = {
     tasks: [
-        { id: 'task-1', columnId: 'column-1', title: 'Take out garbage', content: 'I have to take out the garbage or mom kills me' },
+        { id: 'task-1', columnId: 'column-1', title: 'Take out garbage', content: 'I have to take out the garbage or mom kills me', subTasks: [{ id: '2323', content: 'buenaas', done: false }, { id: '2323', content: 'buenaas', done: false }] },
         { id: 'task-2', columnId: 'column-1', title: 'pet de cat', content: 'i should definetly Pet the cat' },
         { id: 'task-3', columnId: 'column-1', title: 'run', content: 'Go running!' },
         { id: 'task-4', columnId: 'column-1', title: 'Kiss garbage', content: 'Im joking, but you looked!' }
@@ -73,11 +72,11 @@ const useStore = create((set) => ({
         }))
     },
 
-    updateTask: (taskId: Id, title: string, content: string) => {
+    updateTask: (taskId: Id, task: Task) => {
         set((state) => {
             const newTasks = state.tasks.map((task: Task) => {
                 if (task.id !== taskId) return task
-                return { ...task, title, content }
+                return task
             })
 
             return { tasks: newTasks }
