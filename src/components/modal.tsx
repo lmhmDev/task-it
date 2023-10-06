@@ -19,9 +19,9 @@ function Modal({ task, deactivate }: Props) {
     }
 
     const editSubTask = (id: Id, content: string) => {
-        const newSubTasks = localTask.subTasks.filter(subTask => {
+        const newSubTasks = localTask.subTasks.map(subTask => {
             if (subTask.id !== id) return subTask
-            return { ...subTask, content }
+            return { ...subTask, content: content }
         })
         setLocalTask(prevState => {
             return { ...prevState, subTasks: newSubTasks }
@@ -39,7 +39,7 @@ function Modal({ task, deactivate }: Props) {
 
     const createSubTask = () => {
         const newSubTasks = localTask.subTasks.push({
-            id: Math.random() * 10001,
+            id: Math.round(Math.random() * 10001),
             content: 'New Sub Task',
             done: false
         })
@@ -71,7 +71,7 @@ function Modal({ task, deactivate }: Props) {
                             !!localTask.subTasks?.length &&
 
                             localTask.subTasks.map(subTask => {
-                                return <SubTask subTask={subTask} editSubTask={editSubTask} deleteSubTask={deleteSubTask} />
+                                return <SubTask key={subTask.id} subTask={subTask} editSubTask={editSubTask} deleteSubTask={deleteSubTask} />
                             })
 
                         }

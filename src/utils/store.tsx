@@ -19,7 +19,7 @@ const initialData = {
 }
 
 const generateId = () => {
-    return Math.random() * 10001
+    return Math.round(Math.random() * 10001)
 }
 
 const useStore = create((set) => ({
@@ -60,7 +60,8 @@ const useStore = create((set) => ({
                 id: generateId(),
                 columnId: columnId,
                 title: 'New Task',
-                content: ''
+                content: '',
+                subTasks: []
             }
             return { tasks: [...state['tasks'], newTask] }
         })
@@ -72,11 +73,11 @@ const useStore = create((set) => ({
         }))
     },
 
-    updateTask: (taskId: Id, task: Task) => {
+    updateTask: (taskId: Id, updatedTask: Task) => {
         set((state) => {
             const newTasks = state.tasks.map((task: Task) => {
                 if (task.id !== taskId) return task
-                return task
+                return updatedTask
             })
 
             return { tasks: newTasks }
