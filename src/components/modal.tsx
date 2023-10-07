@@ -2,6 +2,7 @@ import { Task, Id, subTask } from '../utils/dnd_types';
 import { useState } from 'react';
 import useStore from '../utils/store';
 import SubTask from './subTask';
+import { generateId } from '@/utils/utils';
 interface Props {
     task: Task
     deactivate: () => void
@@ -39,7 +40,7 @@ function Modal({ task, deactivate }: Props) {
 
     const createSubTask = () => {
         const newSubTasks = localTask.subTasks.push({
-            id: Math.round(Math.random() * 10001),
+            id: generateId(),
             content: 'New Sub Task',
             done: false
         })

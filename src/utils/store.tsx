@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { Column, Id, Task, subTask } from './dnd_types';
 import { arrayMove } from '@dnd-kit/sortable';
+import { generateId } from './utils';
 
 const initialData = {
     tasks: [
@@ -16,10 +17,6 @@ const initialData = {
             title: 'To do'
         }
     ]
-}
-
-const generateId = () => {
-    return Math.round(Math.random() * 10001)
 }
 
 const useStore = create((set) => ({
