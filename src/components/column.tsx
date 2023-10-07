@@ -4,6 +4,7 @@ import useStore from '../utils/store';
 import { CSS } from '@dnd-kit/utilities'
 import { useMemo, useState } from 'react';
 import Card from './card';
+import DeleteButton from './buttons/deleteButton';
 
 interface Props {
     column: Column
@@ -79,18 +80,7 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
                             <h3 className="text-2xl text-white">{column.title}</h3>
                     }
                 </div>
-                <button
-                    className="
-                p-2
-                stroke-secondary
-                hover:stroke-white
-                hover:bg-secondary
-                rounded
-                z-3"
-                    onClick={() => deleteColumn()}
-                >
-                    Delete
-                </button>
+                <DeleteButton action={deleteColumn} />
             </div>
             <div className="flex flex-col flex-grow px-1">
                 <SortableContext items={tasksIds}>

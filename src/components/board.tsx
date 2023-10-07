@@ -1,6 +1,5 @@
 'use client'
 
-import AddIcon from '@/icons/AddIcon';
 import { Column, Task } from '@/utils/dnd_types';
 import { DndContext, closestCenter, DragStartEvent, DragEndEvent, DragOverlay, useSensors, useSensor, PointerSensor, DragOverEvent } from '@dnd-kit/core';
 import useStore from '../utils/store';
@@ -124,7 +123,7 @@ const Board = ({ activeModal }: Props) => {
 
                     })}
                 </SortableContext>
-                <button className="flex p-3 rounded hover:bg-detail" onClick={add}><AddIcon /> añadir</button>
+                <button className="flex p-3 rounded hover:bg-detail" onClick={add}> añadir</button>
             </div>
             {typeof window !== 'undefined' && createPortal(
                 <DragOverlay>

@@ -1,5 +1,6 @@
 import { subTask, Id } from '../utils/dnd_types';
 import { useState } from 'react';
+import DeleteButton from './buttons/deleteButton';
 
 interface Props {
     subTask: subTask
@@ -29,12 +30,7 @@ const SubTask = ({ subTask, editSubTask, deleteSubTask }: Props) => {
                     }}
                 /> :
                 <p>{subTask.content}</p>}
-        <button
-            className="border rounded-sm p-1"
-            onClick={() =>
-                deleteSubTask(subTask.id)
-            }
-        >Delete</button>
+        <DeleteButton action={() => deleteSubTask(subTask.id)} />
     </div>
 }
 

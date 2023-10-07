@@ -4,6 +4,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { Task } from '@/utils/dnd_types';
 import { useState } from 'react';
 import { setegid } from 'process';
+import DeleteButton from './buttons/deleteButton';
 
 interface Props {
     task: Task
@@ -52,18 +53,7 @@ const Card = ({ task, activeModal }: Props) => {
             <p className="p-2">{task.subTasks?.length && task.subTasks.length}{task.title} </p>
             {
                 isHovered &&
-                <button
-                    onClick={() => {
-                        deleteTask(task.id)
-                    }}
-                    className="
-                    opacity-60
-                    p-2
-                    rounded
-                    hover:bg-detail
-                    hover:opacity-100"
-                >
-                    Delete</button>
+                <DeleteButton action={() => deleteTask(task.id)} />
             }
         </div >
     )
