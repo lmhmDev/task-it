@@ -18,3 +18,8 @@ export type subTask = {
     content: string
     done: boolean
 }
+
+export type state = {
+    columns: Column[]
+    tasks: Task[]
+}
