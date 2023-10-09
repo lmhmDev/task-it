@@ -2,7 +2,7 @@
 
 import Board from '@/components/board';
 import Modal from '@/components/modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Task } from '../utils/dnd_types';
 
 export default function Home() {

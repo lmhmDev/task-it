@@ -4,8 +4,8 @@ import { Column, Task } from '@/utils/dnd_types';
 import { DndContext, closestCenter, DragStartEvent, DragEndEvent, DragOverlay, useSensors, useSensor, PointerSensor, DragOverEvent } from '@dnd-kit/core';
 import useStore from '../utils/store';
 import ColumnContainer from './column';
-import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import { useMemo, useState } from 'react';
+import { SortableContext } from '@dnd-kit/sortable';
+import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Card from './card';
 
@@ -31,15 +31,6 @@ const Board = ({ activeModal }: Props) => {
             distance: 3
         }
     }))
-
-    const add = () => {
-        const newCol = {
-            id: 556,
-            title: 'buenaas'
-        }
-
-        addColumn(newCol)
-    }
 
     const onDragStart = (event: DragStartEvent) => {
         console.log('Drag start', event)
@@ -113,6 +104,10 @@ const Board = ({ activeModal }: Props) => {
         }
     }
 
+    useEffect(() => {
+        useStore.persist.rehydrate()
+    }, [])
+
     return (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}>
             <div className="flex gap-5 px-5 items-center overflow-x-auto overflow-y-hidden">
@@ -123,7 +118,7 @@ const Board = ({ activeModal }: Props) => {
 
                     })}
                 </SortableContext>
-                <button className="flex p-3 rounded hover:bg-detail" onClick={add}> añadir</button>
+                <button className="flex p-3 rounded hover:bg-detail" onClick={addColumn}> añadir</button>
             </div>
             {typeof window !== 'undefined' && createPortal(
                 <DragOverlay>
