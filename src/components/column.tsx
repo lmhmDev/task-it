@@ -82,7 +82,7 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
                 </div>
                 <DeleteButton action={deleteColumn} />
             </div>
-            <div className="flex flex-col flex-grow px-1">
+            <div className="flex flex-col flex-grow px-1 overflow-y-auto">
                 <SortableContext items={tasksIds}>
                     {
                         tasks?.map(task => {
