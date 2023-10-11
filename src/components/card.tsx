@@ -17,6 +17,8 @@ const Card = ({ task, activeModal }: Props) => {
 
     const deleteTask = useStore((state) => state.deleteTask)
 
+    const doneTasks = task.subTasks.filter(subtask => subtask.done === true)
+
     const { setNodeRef, attributes, listeners, transform, transition, isDragging } = useSortable({
         id: task.id,
         data: {
@@ -50,7 +52,10 @@ const Card = ({ task, activeModal }: Props) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`w-full flex items-center justify-between border border-grey h-[50px] mb-2 hover:ring-2 hover:ring-inset hover:ring-primary`}>
-            <p className="p-2">{task.subTasks?.length && task.subTasks.length}{task.title} </p>
+            <p>
+                {doneTasks.length}/{task.subTasks.length}
+            </p>
+            <p className="p-2 flex-grow">{task.title} </p>
             {
                 isHovered &&
                 <DeleteButton action={() => deleteTask(task.id)} />

@@ -10,16 +10,11 @@ export type Task = {
     columnId: Id
     title: string
     content: string
-    subTasks: subTask[]
+    subTasks: SubTask[]
 }
 
-export type subTask = {
+export type SubTask = {
     id: Id
     content: string
     done: boolean
-}
-
-export type state = {
-    columns: Column[]
-    tasks: Task[]
 }

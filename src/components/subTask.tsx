@@ -1,14 +1,14 @@
-import { subTask, Id } from '../utils/dnd_types';
+import { Id, SubTask } from '../utils/dnd_types';
 import { useState } from 'react';
 import DeleteButton from './buttons/deleteButton';
 
 interface Props {
-    subTask: subTask
-    editSubTask: (id: Id, content: string) => void
+    subTask: SubTask
+    editSubTask: (id: Id, newSubTask: SubTask) => void
     deleteSubTask: (id: Id) => void
 }
 
-const SubTask = ({ subTask, editSubTask, deleteSubTask }: Props) => {
+const SubTaskCard = ({ subTask, editSubTask, deleteSubTask }: Props) => {
 
     const [editMode, setEditMode] = useState(false)
 
@@ -19,7 +19,7 @@ const SubTask = ({ subTask, editSubTask, deleteSubTask }: Props) => {
                     value={subTask.content}
                     autoFocus
                     onChange={(e) => {
-                        editSubTask(subTask.id, e.target.value)
+                        editSubTask(subTask.id, { ...subTask, content: e.target.value })
                     }}
                     onBlur={() => {
                         setEditMode(false)
@@ -29,9 +29,19 @@ const SubTask = ({ subTask, editSubTask, deleteSubTask }: Props) => {
                         setEditMode(false)
                     }}
                 /> :
-                <p>{subTask.content}</p>}
+                <>
+                    <button
+                        className={`w-4 h-4 border rounded mr-2 ${subTask.done ? 'bg-primary' : ''}`}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            editSubTask(subTask.id, { ...subTask, done: !subTask.done })
+                        }} />
+                    <p className="flex-grow">{subTask.content}</p>
+                </>
+        }
+
         <DeleteButton action={() => deleteSubTask(subTask.id)} />
     </div>
 }
 
-export default SubTask
+export default SubTaskCard

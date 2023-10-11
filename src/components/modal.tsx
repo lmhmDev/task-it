@@ -1,7 +1,7 @@
-import { Task, Id, subTask } from '../utils/dnd_types';
+import { Task, Id, SubTask } from '../utils/dnd_types';
 import { useState } from 'react';
 import useStore from '../utils/store';
-import SubTask from './subTask';
+import SubTaskCard from './subTask';
 import { generateId } from '@/utils/utils';
 interface Props {
     task: Task
@@ -19,10 +19,10 @@ function Modal({ task, deactivate }: Props) {
         deactivate()
     }
 
-    const editSubTask = (id: Id, content: string) => {
+    const editSubTask = (id: Id, newSubTask: SubTask) => {
         const newSubTasks = localTask.subTasks.map(subTask => {
             if (subTask.id !== id) return subTask
-            return { ...subTask, content: content }
+            return newSubTask
         })
         setLocalTask(prevState => {
             return { ...prevState, subTasks: newSubTasks }
@@ -72,7 +72,7 @@ function Modal({ task, deactivate }: Props) {
                             !!localTask.subTasks?.length &&
 
                             localTask.subTasks.map(subTask => {
-                                return <SubTask key={subTask.id} subTask={subTask} editSubTask={editSubTask} deleteSubTask={deleteSubTask} />
+                                return <SubTaskCard key={subTask.id} subTask={subTask} editSubTask={editSubTask} deleteSubTask={deleteSubTask} />
                             })
 
                         }
