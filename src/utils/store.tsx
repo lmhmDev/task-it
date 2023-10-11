@@ -22,7 +22,8 @@ const useStore = create(
 
             deleteColumn: (columnId: Id) => {
                 set((state) => ({
-                    columns: state.columns.filter((column: Column) => column.id != columnId)
+                    tasks: state.tasks.filter((task: Task) => task.columnId !== columnId),
+                    columns: state.columns.filter((column: Column) => column.id !== columnId)
                 }))
             },
 
