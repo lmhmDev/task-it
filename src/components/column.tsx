@@ -44,7 +44,7 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
     }
 
     return (
-        <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded">
+        <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded shadow-2xl">
             <div
                 {...attributes}
                 {...listeners}
@@ -91,8 +91,9 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
                     }
                 </SortableContext>
             </div>
-            <div>
+            <div className="flex justify-end p-2 border-t border-t">
                 <button
+                    className="border p-1 border-primary rounded text-sm text-white bg-primary shadow hover:border-secondary"
                     onClick={() => {
                         createTask(column.id)
                     }}
