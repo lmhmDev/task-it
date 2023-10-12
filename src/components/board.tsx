@@ -8,6 +8,7 @@ import { SortableContext } from '@dnd-kit/sortable';
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Card from './card';
+import AddIcon from './icons/addIcon';
 
 interface Props {
     activeModal: (task: Task) => void
@@ -118,7 +119,7 @@ const Board = ({ activeModal }: Props) => {
 
                     })}
                 </SortableContext>
-                <button className="flex p-3 rounded hover:bg-detail" onClick={addColumn}> añadir</button>
+                <button className="flex items-center justify-center gap-1 p-3 border border-black rounded hover:bg-[#f1f1f1]" onClick={addColumn}><AddIcon />New column</button>
             </div>
             {typeof window !== 'undefined' && createPortal(
                 <DragOverlay>
