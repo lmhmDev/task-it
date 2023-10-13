@@ -111,7 +111,7 @@ const Board = ({ activeModal }: Props) => {
 
     return (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver}>
-            <div className="flex gap-5 px-5 items-center overflow-x-auto h-[100%]">
+            <section className="flex gap-5 px-5 items-center overflow-x-auto h-[100%]">
                 <SortableContext items={columnsIds}>
                     {columns.map((column) => {
                         const colTasks = tasks.filter(task => task.columnId === column.id)
@@ -120,7 +120,7 @@ const Board = ({ activeModal }: Props) => {
                     })}
                 </SortableContext>
                 <button className="flex items-center justify-center gap-1 p-3 border border-white text-white rounded hover:bg-secondary" onClick={addColumn}><AddIcon />New column</button>
-            </div>
+            </section>
             {typeof window !== 'undefined' && createPortal(
                 <DragOverlay>
                     {activeColumn && <ColumnContainer column={activeColumn} tasks={tasks.filter(task => task.columnId === activeColumn.id)} activeModal={activeModal} />}
