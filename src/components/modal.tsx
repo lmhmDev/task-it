@@ -4,6 +4,7 @@ import useStore from '../utils/store';
 import SubTaskCard from './subTask';
 import { generateId } from '@/utils/utils';
 import AddIcon from './icons/addIcon';
+import CloseIcon from './icons/closeIcon';
 interface Props {
     task: Task
     deactivate: () => void
@@ -53,6 +54,14 @@ function Modal({ task, deactivate }: Props) {
     return (
         <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center">
             <div className="bg-white rounded min-w-fit w-1/4 min-h-[66%] flex flex-col p-3">
+                <div className="w-full flex justify-end">
+                    <button
+                        className="mb-2 p-1 w-fit hover:bg-detail rounded"
+                        onClick={deactivate}
+                    >
+                        <CloseIcon />
+                    </button>
+                </div>
                 <div className="flex flex-col gap-2 grow">
                     <div className="shadow p-3 rounded">
                         <p>Task title:</p>
