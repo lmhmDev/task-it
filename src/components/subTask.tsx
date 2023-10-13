@@ -40,7 +40,7 @@ const SubTaskCard = ({ subTask, editSubTask, deleteSubTask }: Props) => {
                 </>
         }
 
-        <DeleteButton action={() => deleteSubTask(subTask.id)} />
+        <DeleteButton secondary action={() => deleteSubTask(subTask.id)} />
     </div>
 }
 

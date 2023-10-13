@@ -93,7 +93,7 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
             </div>
             <div className="flex justify-end p-2 border-t border-t">
                 <button
-                    className="border p-1 border-primary rounded text-sm text-white bg-primary shadow hover:border-secondary"
+                    className="p-1 rounded text-sm text-white bg-primary shadow hover:bg-secondary"
                     onClick={() => {
                         createTask(column.id)
                     }}

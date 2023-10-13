@@ -51,34 +51,42 @@ function Modal({ task, deactivate }: Props) {
 
     return (
         <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center">
-            <div className="bg-secondary min-w-fit w-1/4 h-2/3 flex flex-col p-3">
-                <div className="grow">
-                    <p>Task title:
-                    <input value={localTask.title} onChange={(e) => {
-                            setLocalTask(prevState => {
-                                return { ...prevState, title: e.target.value }
-                            })
-                        }} />
-                    </p>
-                    <p>Description:</p>
-                    <textarea value={localTask.content} onChange={(e) => {
-                        setLocalTask(prevState => {
-                            return { ...prevState, content: e.target.value }
-                        })
-                    }} />
+            <div className="bg-white rounded min-w-fit w-1/4 min-h-[66%] flex flex-col p-3">
+                <div className="flex flex-col gap-2 grow">
+                    <div className="shadow p-3 rounded">
+                        <p>Task title:</p>
+                        <input
+                            className="p-1 rounded w-full border-[1px] focus:border-primary outline-none"
+                            value={localTask.title}
+                            onChange={(e) => {
+                                setLocalTask(prevState => {
+                                    return { ...prevState, title: e.target.value }
+                                })
+                            }} />
+                    </div>
+                    <div className="shadow p-3 rounded">
+                        <p>Description:</p>
+                        <textarea
+                            className="p-1 rounded w-full max-h-[80px] border-[1px] focus:border-primary outline-none"
+                            value={localTask.content}
+                            onChange={(e) => {
+                                setLocalTask(prevState => {
+                                    return { ...prevState, content: e.target.value }
+                                })
+                            }} />
+                    </div>
                     <div className="flex flex-col">
                         <p>Subtasks:</p>
                         {
                             !!localTask.subTasks?.length &&
-
                             localTask.subTasks.map(subTask => {
                                 return <SubTaskCard key={subTask.id} subTask={subTask} editSubTask={editSubTask} deleteSubTask={deleteSubTask} />
                             })
 
+
                         }
                         {
-                            localTask.subTasks && localTask.subTasks.length < 4 &&
-
+                            localTask.subTasks.length < 4 &&
                             <button
                                 onClick={createSubTask}
                             >Add</button>
