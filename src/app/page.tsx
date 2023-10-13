@@ -21,7 +21,7 @@ export default function Home() {
     }
 
     return (
-        <main className="flex items-center h-[calc(100vh-74px)] w-full">
+        <main className="flex items-center h-[calc(100vh-74px)] w-full bg-primary">
             {showModal && modalTask && <Modal task={modalTask} deactivate={deactivateModal} />}
             <Board activeModal={activeModal} />
         </main>

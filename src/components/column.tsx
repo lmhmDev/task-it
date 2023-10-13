@@ -44,14 +44,14 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
     }
 
     return (
-        <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-secondary min-w-[350px] rounded shadow-2xl">
+        <div ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-white min-w-[350px] rounded shadow-2xl">
             <div
                 {...attributes}
                 {...listeners}
                 onClick={() => setEditMode(true)}
                 className="
             bg-primary 
-            border-secondary 
+            border-white 
             border-4 
             h-[60px] 
             p-2 

@@ -119,7 +119,7 @@ const Board = ({ activeModal }: Props) => {
 
                     })}
                 </SortableContext>
-                <button className="flex items-center justify-center gap-1 p-3 border border-black rounded hover:bg-[#f1f1f1]" onClick={addColumn}><AddIcon />New column</button>
+                <button className="flex items-center justify-center gap-1 p-3 border border-white text-white rounded hover:bg-secondary" onClick={addColumn}><AddIcon />New column</button>
             </div>
             {typeof window !== 'undefined' && createPortal(
                 <DragOverlay>
