@@ -8,7 +8,7 @@ interface StoreState {
     tasks: Task[]
     columns: Column[]
     addColumn: () => void
-    deleteColumn: (columnId: string) => void
+    deleteColumn: (columnId: Id) => void
     changeOrder: (oldIndex: number, newIndex: number) => void
     updateColumnTitle: (id: Id, title: string) => void
     createTask: (columnId: Id) => void
