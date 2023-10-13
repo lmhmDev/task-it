@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { Column, Id, Task, subTask, state } from './dnd_types';
+import { Column, Id, Task } from './dnd_types';
 import { arrayMove } from '@dnd-kit/sortable';
 import { generateId } from './utils';
 

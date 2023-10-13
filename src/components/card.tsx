@@ -3,7 +3,6 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Task } from '@/utils/dnd_types';
 import { useState } from 'react';
-import { setegid } from 'process';
 import DeleteButton from './buttons/deleteButton';
 
 interface Props {
