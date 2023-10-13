@@ -1,8 +1,8 @@
 import { colors } from "@/utils/constants";
 
 interface Props {
-    secondary: boolean
-    isHovered: boolean
+    secondary?: boolean
+    isHovered?: boolean
 }
 
 function AddIcon({ secondary, isHovered }: Props) {
