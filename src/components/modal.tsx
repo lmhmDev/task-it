@@ -16,6 +16,8 @@ function Modal({ task, deactivate }: Props) {
 
     const updateTask = useStore((state) => state.updateTask)
 
+    const [isAddSubtaskHovered, setIsAddSubtaskHovered] = useState(false)
+
     const saveTask = () => {
         updateTask(localTask.id, localTask)
         deactivate()
@@ -98,16 +100,18 @@ function Modal({ task, deactivate }: Props) {
                         {
                             localTask.subTasks.length < 4 &&
                             <button
-                                className="flex items-center justify-center gap-1 p-1 rounded border border-secondary text-secondary mt-2 w-fit m-auto"
+                                onMouseOver={() => setIsAddSubtaskHovered(true)}
+                                onMouseLeave={() => { setIsAddSubtaskHovered(false) }}
+                                className="flex items-center justify-center gap-1 p-1 rounded border border-secondary text-secondary mt-2 w-fit m-auto hover:bg-primary hover:border-primary hover:text-white"
                                 onClick={createSubTask}
-                            ><AddIcon secondary /> Add</button>
+                            ><AddIcon isHovered={isAddSubtaskHovered} secondary /> Add</button>
                         }
                     </div>
                 </div>
                 <footer className="flex justify-end p-2">
                     <button
                         onClick={saveTask}
-                        className="border rounded border-white text-white bg-primary px-4 py-3 hover:ring-2 hover:ring-inset hover:ring-secondary">Save</button>
+                        className="border rounded border-white text-white bg-primary px-4 py-3 hover:bg-secondary">Save</button>
                 </footer>
             </div>
         </div>
