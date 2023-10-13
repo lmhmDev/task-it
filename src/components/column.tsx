@@ -80,7 +80,7 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
                             <h3 className="text-2xl text-white">{column.title}</h3>
                     }
                 </div>
-                <DeleteButton action={deleteColumn} />
+                <DeleteButton secondary={false} action={deleteColumn} />
             </div>
             <div className="flex flex-col flex-grow px-1 overflow-y-auto">
                 <SortableContext items={tasksIds}>

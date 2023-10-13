@@ -1,20 +1,22 @@
 import React, { ReactElement } from 'react'
+import RemoveIcon from '../icons/removeIcon';
 
 interface Props {
     action: () => void
+    secondary: boolean
 }
 
-function DeleteButton({ action }: Props): ReactElement {
+function DeleteButton({ action, secondary }: Props): ReactElement {
     return (
         <button
-            className="border rounded-sm p-1"
+            className="hover:bg-secondary rounded-sm p-2"
             onClick={(e) => {
                 e.stopPropagation();
                 action()
             }
             }
         >
-            Delete
+            <RemoveIcon secondary={secondary} />
         </button>
     )
 }
