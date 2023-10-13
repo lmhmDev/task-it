@@ -4,7 +4,20 @@ import { Column, Id, Task, subTask, state } from './dnd_types';
 import { arrayMove } from '@dnd-kit/sortable';
 import { generateId } from './utils';
 
-const useStore = create(
+interface StoreState {
+    tasks: Task[]
+    columns: Column[]
+    addColumn: () => void
+    deleteColumn: (columnId: string) => void
+    changeOrder: (oldIndex: number, newIndex: number) => void
+    updateColumnTitle: (id: Id, title: string) => void
+    createTask: (columnId: Id) => void
+    deleteTask: (taskId: Id) => void
+    updateTask: (taskId: Id, updatedTask: Task) => void
+    changeTasksOrder: (oldIndex: number, newIndex: number) => void
+}
+
+const useStore = create<StoreState>()(
     persist(
         (set) => ({
             tasks: [],
