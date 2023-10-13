@@ -3,6 +3,7 @@ import { useState } from 'react';
 import useStore from '../utils/store';
 import SubTaskCard from './subTask';
 import { generateId } from '@/utils/utils';
+import AddIcon from './icons/addIcon';
 interface Props {
     task: Task
     deactivate: () => void
@@ -88,8 +89,9 @@ function Modal({ task, deactivate }: Props) {
                         {
                             localTask.subTasks.length < 4 &&
                             <button
+                                className="flex items-center justify-center gap-1 p-1 rounded border border-secondary text-secondary mt-2 w-fit m-auto"
                                 onClick={createSubTask}
-                            >Add</button>
+                            ><AddIcon secondary /> Add</button>
                         }
                     </div>
                 </div>
