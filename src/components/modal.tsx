@@ -5,6 +5,8 @@ import SubTaskCard from './subTask';
 import { generateId } from '@/utils/utils';
 import AddIcon from './icons/addIcon';
 import CloseIcon from './icons/closeIcon';
+import { tasksColors } from '../utils/constants';
+import ColorPickButton from './colorPickButton';
 interface Props {
     task: Task
     deactivate: () => void
@@ -53,6 +55,12 @@ function Modal({ task, deactivate }: Props) {
         })
     }
 
+    const editColor = (color: string) => {
+        setLocalTask(prevState => {
+            return { ...prevState, color: color }
+        })
+    }
+
     return (
         <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center">
             <div className="bg-white rounded min-w-[300px] w-1/4 min-h-[66%] flex flex-col p-3">
@@ -86,6 +94,15 @@ function Modal({ task, deactivate }: Props) {
                                     return { ...prevState, content: e.target.value }
                                 })
                             }} />
+                    </div>
+                    <div className="p-3 pl-0 flex items-center justify-center gap-1 rounded">
+                        <p>Pick color:</p>
+                        <div className="flex flex-grow">
+                            <ColorPickButton action={editColor} color={''} taskColor={localTask.color} />
+                            {Object.values(tasksColors).map((color) => {
+                                return <ColorPickButton action={editColor} color={color} taskColor={localTask.color} />
+                            })}
+                        </div>
                     </div>
                     <div className="flex flex-col">
                         <p>Subtasks:</p>

@@ -11,6 +11,7 @@ export type Task = {
     title: string
     content: string
     subTasks: SubTask[]
+    color?: string
 }
 
 export type SubTask = {
