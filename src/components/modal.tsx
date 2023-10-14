@@ -100,7 +100,7 @@ function Modal({ task, deactivate }: Props) {
                         <div className="flex flex-grow">
                             <ColorPickButton action={editColor} color={''} taskColor={localTask.color} />
                             {Object.values(tasksColors).map((color) => {
-                                return <ColorPickButton action={editColor} color={color} taskColor={localTask.color} />
+                                return <ColorPickButton key={color} action={editColor} color={color} taskColor={localTask.color} />
                             })}
                         </div>
                     </div>
