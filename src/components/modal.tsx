@@ -62,7 +62,7 @@ function Modal({ task, deactivate }: Props) {
     }
 
     return (
-        <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center">
+        <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-30 flex items-center justify-center z-10">
             <div className="bg-white rounded min-w-[300px] w-1/4 min-h-[66%] flex flex-col p-3">
                 <div className="w-full flex justify-end">
                     <button
