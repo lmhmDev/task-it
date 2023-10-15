@@ -70,10 +70,15 @@ const Card = ({ task, activeModal }: Props) => {
                     {task.title}
                 </p>
             </div>
-            {
-                isHovered &&
+            <div className="hidden md:block">
+                {
+                    isHovered &&
+                    <DeleteButton secondary action={() => deleteTask(task.id)} />
+                }
+            </div>
+            <div className="md:hidden">
                 <DeleteButton secondary action={() => deleteTask(task.id)} />
-            }
+            </div>
 
         </div >
     )

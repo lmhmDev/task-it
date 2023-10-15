@@ -48,7 +48,7 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
     }
 
     return (
-        <article ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-white w-[350px] rounded shadow-2xl">
+        <article ref={setNodeRef} style={style} className="flex flex-col h-[500px] bg-white min-w-[350px] w-[350px] rounded shadow-2xl">
             <div
                 {...attributes}
                 {...listeners}
