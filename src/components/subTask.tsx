@@ -12,12 +12,17 @@ const SubTaskCard = ({ subTask, editSubTask, deleteSubTask }: Props) => {
 
     const [editMode, setEditMode] = useState(false)
 
+    const handleFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.target.select()
+    }
+
     return <div onClick={() => setEditMode(true)} className="bg-white rounded p-2 flex justify-between items-center">
         {
             editMode ?
                 <input
                     value={subTask.content}
                     autoFocus
+                    onFocus={handleFocus}
                     onChange={(e) => {
                         editSubTask(subTask.id, { ...subTask, content: e.target.value })
                     }}

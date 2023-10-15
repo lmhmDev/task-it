@@ -37,6 +37,10 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
         disabled: editMode
     })
 
+    const handleFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.target.select()
+    }
+
     const style = {
         transition,
         transform: CSS.Transform.toString(transform),
@@ -70,6 +74,7 @@ const ColumnContainer = ({ column, tasks, activeModal }: Props) => {
                                     updateColumnTitle(column.id, e.target.value)
                                 }}
                                 autoFocus
+                                onFocus={handleFocus}
                                 onBlur={() => setEditMode(false)
                                 }
                                 onKeyDown={(e) => {
