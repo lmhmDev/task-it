@@ -56,17 +56,17 @@ const Card = ({ task, activeModal }: Props) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`w-full flex items-center justify-between border border-grey relative h-[50px] mb-2 shadow rounded p-2 hover:ring-2 hover:ring-inset hover:ring-primary`}>
-            <p className="border rounded-2xl p-1 w-[45px] text-center text-sm">
+            <p className="border rounded-2xl p-1 min-w-[45px] text-center text-sm">
                 {doneTasks.length} / {task.subTasks.length}
             </p>
-            <div className="flex flex-grow items-center p-2 gap-1">
+            <div className="flex flex-grow items-center p-2 gap-1 overflow-hidden">
                 {
                     !!task.color &&
                     <div
                         style={colorStyle}
-                        className={`w-[20px] h-[10px] rounded`} />
+                        className={`min-w-[20px] h-[10px] rounded`} />
                 }
-                <p className="">
+                <p className="overflow-hidden whitespace-nowrap text-ellipsis flex-grow">
                     {task.title}
                 </p>
             </div>
