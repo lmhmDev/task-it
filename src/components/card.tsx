@@ -4,7 +4,6 @@ import { CSS } from '@dnd-kit/utilities'
 import { Task } from '@/utils/dnd_types';
 import { useState } from 'react';
 import DeleteButton from './buttons/deleteButton';
-import { tasksColors } from '@/utils/constants';
 
 interface Props {
     task: Task
